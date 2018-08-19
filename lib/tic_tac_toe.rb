@@ -10,6 +10,7 @@ WIN_COMBINATIONS = [
   [2,4,6]  # right to left diagonal
 ]
 
+# Define and display the board
 board = [" "," "," "," "," "," "," "," "," "]
 
 def display_board(board)
