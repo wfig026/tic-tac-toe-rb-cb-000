@@ -21,6 +21,15 @@ def display_board(board)
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
 
+# Is the selection a valid move?
+def valid_move?(board, index)
+  if (position_taken?(board, index) == false && index.between?(0, 8) == true)
+    return true
+  else
+    return false
+  end
+end
+
 # Is position taken?
 def position_taken?(board, index)
   position = board[index]
@@ -31,12 +40,96 @@ def position_taken?(board, index)
   end
 end
 
-# Is the selection a valid move?
+# Convert user input to index
+def input_to_index(input)
+  index = input.to_i - 1
+end
 
-def valid_move?(board, index)
-  if (position_taken?(board, index) == false && index.between?(0, 8) == true)
-    return true
+# 
+def move(board, index, character = "X")
+  board[index] = character
+end
+
+# User take their turn
+def turn(board)
+  puts "Please enter 1-9:"
+  input = gets.strip
+  index = input_to_index(input)
+
+  if valid_move?(board,index)
+    move(board,index)
+    display_board(board)
   else
-    return false
+    turn(board)
+  end
+end
+
+# Keep track to the turn count
+def turn_count(board)
+  turns = 0
+  board.each do |turn|
+    if turn == "X" || turn == "O"
+      turns +=1
+    end
+  end
+  return turns
+end
+
+# Determine current player
+def current_player(board)
+  turns = turn_count(board)
+  if turns % 2 == 0
+    return "X"
+  else
+    return "O"
+  end
+end
+
+# Is there a winner?
+def won?(board)
+  WIN_COMBINATIONS.detect do |win_combination|
+    if win_combination.all? do |win_index|
+      board[win_index] == "X"
+    end
+      true
+    elsif win_combination.all? do |win_index|
+      board[win_index] == "O"
+    end
+      true
+    else
+      false
+    end
+  end
+end
+
+# Are all positions on the board full?
+def full?(board)
+  board.all? do |index|
+    index == "X" || index == "O"
+  end
+end
+
+# Is it a draw?
+def draw?(board)
+  if full?(board) == true && won?(board) == nil
+    true
+  end
+end
+
+# Is the game over?
+def over?(board)
+  if won?(board) != nil || full?(board) == true || draw?(board) == true
+    true
+  else
+    false
+  end
+end
+
+# Was the winner X or O?
+def winner(board)
+  if won?(board) != nil
+    board[won?(board).detect {|index| board[index] == "X" || board[index] == "O"}]
+  else
+    nil
   end
 end
