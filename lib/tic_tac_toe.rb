@@ -30,3 +30,13 @@ def position_taken?(board, index)
     return true
   end
 end
+
+# Is the selection a valid move?
+
+def valid_move?(board, index)
+  if (position_taken?(board, index) == false && index.between?(0, 8) == true)
+    return true
+  else
+    return false
+  end
+end
