@@ -135,6 +135,15 @@ def winner(board)
 end
 
 # Play
-def play()
-
+def play(board)
+  until over?(board) do
+      turn(board)
+  end
+  if winner(board) == "X"
+    puts "Congratulations X!"
+  elsif winner(board) == "O"
+    puts "Congratulations O!"
+  elsif draw?(board) == true
+    puts "Cat's Game!"
+  end
 end
