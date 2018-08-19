@@ -21,25 +21,6 @@ def display_board(board)
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
 
-# Is the selection a valid move?
-def valid_move?(board, index)
-  if (position_taken?(board, index) == false && index.between?(0, 8) == true)
-    return true
-  else
-    return false
-  end
-end
-
-# Is position taken?
-def position_taken?(board, index)
-  position = board[index]
-  if position == " " || position == "" || position == nil
-    return false
-  else
-    return true
-  end
-end
-
 # Convert user input to index
 def input_to_index(input)
   index = input.to_i - 1
@@ -48,6 +29,20 @@ end
 # Move
 def move(board, index, character)
   board[index] = character
+end
+
+# Is position taken?
+def position_taken?(board, index)
+  !(board[index].nil? || board[index] == " ")
+end
+
+# Is the selection a valid move?
+def valid_move?(board, index)
+  if (position_taken?(board, index) == false && index.between?(0, 8) == true)
+    return true
+  else
+    return false
+  end
 end
 
 # User take their turn
