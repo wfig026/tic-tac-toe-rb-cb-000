@@ -46,7 +46,7 @@ def input_to_index(input)
 end
 
 #
-def move(board, index, character = "X")
+def move(board, index, character)
   board[index] = character
 end
 
@@ -132,4 +132,9 @@ def winner(board)
   else
     nil
   end
+end
+
+# Play
+def play()
+
 end
