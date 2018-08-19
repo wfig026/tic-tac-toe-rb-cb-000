@@ -51,6 +51,7 @@ def turn(board)
   puts "Please enter 1-9:"
   input = gets.strip
   index = input_to_index(input)
+
   if valid_move?(board,index)
     move(board,index, character)
     display_board(board)
@@ -73,7 +74,7 @@ end
 # Determine current player
 def current_player(board)
   turns = turn_count(board)
-  if turns(board).even
+  if turns % 2 == 0
     return "X"
   else
     return "O"
